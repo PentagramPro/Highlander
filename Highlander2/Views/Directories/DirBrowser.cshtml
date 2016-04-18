@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $(document).ready(function() {
+        $('#treeDir').jstree();
+
+    });
+
+    function AddDirectory(dirParentId, dirParentName) {
+        $('#txtDirParent').text(dirParentName);
+        $('#DirParentId').val(dirParentId);
+        console.log("selected: "+dirParentName);
+        $('#DirectoryName').focus();
+    };
+
+</script>
+
+<h2>Index</h2>
+
+<div id="treeDir">
+    @ShowTree(ViewBag.Roots)
+</div>
+
+@using (Html.BeginForm("Create", "Directories"))
+{
+    <p>
+        Directory name: <input type="text" name="DirectoryName" id="DirectoryName" /> <br />
+        Directory parent: <span id="txtDirParent"></span> <br />
+        <input type="hidden" name="DirParentId" id="DirParentId" />
+        <input type="submit" value="Add" />
+    </p>
+}
+
+
+
+@helper ShowTree(IEnumerable<Highlander2.Models.Directory> dirs)
+{
+    <ul>
+        @foreach (var dir in dirs)
+        {
+            <li>
+                <span>@dir.Name</span>
+                <img onclick="AddDirectory('@dir.Id', '@dir.Name')" src="~/Content/Images/addfolder.png" width="20" height="20">
+                @if (dir.Children.Any())
+                {
+                    @ShowTree(dir.Children)
+                }
+            </li>
+        }
+    </ul>
+}

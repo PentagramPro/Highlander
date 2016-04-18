@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="41e5c5280d4243aca2b04c3bf12a82a8" Name="Diagram1" DisplayType="true" ZoomLevel="113" >
+        <EntityTypeShape EntityType="DataModel.Artifact" Width="2.125" PointX="2" PointY="3.125" />
+        <EntityTypeShape EntityType="DataModel.Atom" Width="1.5" PointX="7.375" PointY="0.875" />
+        <EntityTypeShape EntityType="DataModel.Template" Width="1.875" PointX="7.625" PointY="3.375" />
+        <EntityTypeShape EntityType="DataModel.Document" Width="1.5" PointX="6.875" PointY="6.125" />
+        <InheritanceConnector EntityType="DataModel.Document" />
+        <InheritanceConnector EntityType="DataModel.Document" />
+        <AssociationConnector Association="DataModel.TemplateDocument" />
+        <InheritanceConnector EntityType="DataModel.Atom" />
+        <InheritanceConnector EntityType="DataModel.Template" />
+        <EntityTypeShape EntityType="DataModel.Tag" Width="1.5" PointX="2" PointY="0.5" />
+        <AssociationConnector Association="DataModel.TagArtifact" />
+        <EntityTypeShape EntityType="DataModel.InformationBlock" Width="1.5" PointX="5.25" PointY="3.625" />
+        <InheritanceConnector EntityType="DataModel.InformationBlock" />
+        <InheritanceConnector EntityType="DataModel.Atom" />
+        <InheritanceConnector EntityType="DataModel.Template" />
+        <AssociationConnector Association="DataModel.InformationBlockTemplate" />
+        <EntityTypeShape EntityType="DataModel.Directory" Width="1.5" PointX="2.5" PointY="6.25" />
+        <AssociationConnector Association="DataModel.DirectoryDirectory" />
+        <AssociationConnector Association="DataModel.ArtifactDirectory" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="ArtifactSet" EntityType="DataModel.Store.ArtifactSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagSet" EntityType="DataModel.Store.TagSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DirectorySet" EntityType="DataModel.Store.DirectorySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArtifactSet_InformationBlock" EntityType="DataModel.Store.ArtifactSet_InformationBlock" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArtifactSet_Template" EntityType="DataModel.Store.ArtifactSet_Template" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArtifactSet_Document" EntityType="DataModel.Store.ArtifactSet_Document" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArtifactSet_Atom" EntityType="DataModel.Store.ArtifactSet_Atom" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagArtifact" EntityType="DataModel.Store.TagArtifact" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InformationBlockTemplate" EntityType="DataModel.Store.InformationBlockTemplate" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="TemplateDocument" Association="DataModel.Store.TemplateDocument">
+      <End Role="Template" EntitySet="ArtifactSet_Template" />
+      <End Role="Document" EntitySet="ArtifactSet_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagArtifact_Tag" Association="DataModel.Store.FK_TagArtifact_Tag">
+      <End Role="Tag" EntitySet="TagSet" />
+      <End Role="TagArtifact" EntitySet="TagArtifact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagArtifact_Artifact" Association="DataModel.Store.FK_TagArtifact_Artifact">
+      <End Role="Artifact" EntitySet="ArtifactSet" />
+      <End Role="TagArtifact" EntitySet="TagArtifact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InformationBlockTemplate_InformationBlock" Association="DataModel.Store.FK_InformationBlockTemplate_InformationBlock">
+      <End Role="InformationBlock" EntitySet="ArtifactSet_InformationBlock" />
+      <End Role="InformationBlockTemplate" EntitySet="InformationBlockTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InformationBlockTemplate_Template" Association="DataModel.Store.FK_InformationBlockTemplate_Template">
+      <End Role="Template" EntitySet="ArtifactSet_Template" />
+      <End Role="InformationBlockTemplate" EntitySet="InformationBlockTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="DirectoryDirectory" Association="DataModel.Store.DirectoryDirectory">
+      <End Role="Directory" EntitySet="DirectorySet" />
+      <End Role="Directory1" EntitySet="DirectorySet" />
+    </AssociationSet>
+    <AssociationSet Name="ArtifactDirectory" Association="DataModel.Store.ArtifactDirectory">
+      <End Role="Artifact" EntitySet="ArtifactSet" />
+      <End Role="Directory" EntitySet="DirectorySet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InformationBlock_inherits_Artifact" Association="DataModel.Store.FK_InformationBlock_inherits_Artifact">
+      <End Role="Artifact" EntitySet="ArtifactSet" />
+      <End Role="InformationBlock" EntitySet="ArtifactSet_InformationBlock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Template_inherits_InformationBlock" Association="DataModel.Store.FK_Template_inherits_InformationBlock">
+      <End Role="InformationBlock" EntitySet="ArtifactSet_InformationBlock" />
+      <End Role="Template" EntitySet="ArtifactSet_Template" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_inherits_Artifact" Association="DataModel.Store.FK_Document_inherits_Artifact">
+      <End Role="Artifact" EntitySet="ArtifactSet" />
+      <End Role="Document" EntitySet="ArtifactSet_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Atom_inherits_InformationBlock" Association="DataModel.Store.FK_Atom_inherits_InformationBlock">
+      <End Role="InformationBlock" EntitySet="ArtifactSet_InformationBlock" />
+      <End Role="Atom" EntitySet="ArtifactSet_Atom" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ArtifactSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Version" Type="int" Nullable="false" DefaultValue="1" />
+    <Property Name="EditorRequired" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Directory_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TagSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DirectorySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Parent_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ArtifactSet_InformationBlock">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArtifactSet_Template">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Document_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ArtifactSet_Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArtifactSet_Atom">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TagArtifact">
+    <Key>
+      <PropertyRef Name="Tag_Id" />
+      <PropertyRef Name="Artifact_Id" />
+    </Key>
+    <Property Name="Tag_Id" Type="int" Nullable="false" />
+    <Property Name="Artifact_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InformationBlockTemplate">
+    <Key>
+      <PropertyRef Name="Blocks_Id" />
+      <PropertyRef Name="LinkedTemplates_Id" />
+    </Key>
+    <Property Name="Blocks_Id" Type="int" Nullable="false" />
+    <Property Name="LinkedTemplates_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="TemplateDocument">
+    <End Role="Template" Type="DataModel.Store.ArtifactSet_Template" Multiplicity="*" />
+    <End Role="Document" Type="DataModel.Store.ArtifactSet_Document" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Template">
+        <PropertyRef Name="Document_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DirectoryDirectory">
+    <End Role="Directory" Type="DataModel.Store.DirectorySet" Multiplicity="*" />
+    <End Role="Directory1" Type="DataModel.Store.DirectorySet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Directory1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Directory">
+        <PropertyRef Name="Parent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArtifactDirectory">
+    <End Role="Artifact" Type="DataModel.Store.ArtifactSet" Multiplicity="*" />
+    <End Role="Directory" Type="DataModel.Store.DirectorySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Directory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Artifact">
+        <PropertyRef Name="Directory_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagArtifact_Tag">
+    <End Role="Tag" Type="DataModel.Store.TagSet" Multiplicity="1" />
+    <End Role="TagArtifact" Type="DataModel.Store.TagArtifact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagArtifact">
+        <PropertyRef Name="Tag_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagArtifact_Artifact">
+    <End Role="TagArtifact" Type="DataModel.Store.TagArtifact" Multiplicity="*" />
+    <End Role="Artifact" Type="DataModel.Store.ArtifactSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Artifact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagArtifact">
+        <PropertyRef Name="Artifact_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InformationBlockTemplate_InformationBlock">
+    <End Role="InformationBlock" Type="DataModel.Store.ArtifactSet_InformationBlock" Multiplicity="1" />
+    <End Role="InformationBlockTemplate" Type="DataModel.Store.InformationBlockTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InformationBlock">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InformationBlockTemplate">
+        <PropertyRef Name="Blocks_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InformationBlockTemplate_Template">
+    <End Role="InformationBlockTemplate" Type="DataModel.Store.InformationBlockTemplate" Multiplicity="*" />
+    <End Role="Template" Type="DataModel.Store.ArtifactSet_Template" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Template">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InformationBlockTemplate">
+        <PropertyRef Name="LinkedTemplates_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InformationBlock_inherits_Artifact">
+    <End Role="Artifact" Type="DataModel.Store.ArtifactSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="InformationBlock" Type="DataModel.Store.ArtifactSet_InformationBlock" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Artifact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InformationBlock">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Template_inherits_InformationBlock">
+    <End Role="InformationBlock" Type="DataModel.Store.ArtifactSet_InformationBlock" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Template" Type="DataModel.Store.ArtifactSet_Template" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="InformationBlock">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Template">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Document_inherits_Artifact">
+    <End Role="Artifact" Type="DataModel.Store.ArtifactSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Document" Type="DataModel.Store.ArtifactSet_Document" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Artifact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Atom_inherits_InformationBlock">
+    <End Role="InformationBlock" Type="DataModel.Store.ArtifactSet_InformationBlock" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Atom" Type="DataModel.Store.ArtifactSet_Atom" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="InformationBlock">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Atom">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ArtifactSet" EntityType="DataModel.Artifact" />
+          <AssociationSet Name="TemplateDocument" Association="DataModel.TemplateDocument">
+            <End Role="Template" EntitySet="ArtifactSet" />
+            <End Role="Document" EntitySet="ArtifactSet" />
+          </AssociationSet>
+          <EntitySet Name="TagSet" EntityType="DataModel.Tag" />
+          <AssociationSet Name="TagArtifact" Association="DataModel.TagArtifact">
+            <End Role="Tag" EntitySet="TagSet" />
+            <End Role="Artifact" EntitySet="ArtifactSet" />
+          </AssociationSet>
+          <AssociationSet Name="InformationBlockTemplate" Association="DataModel.InformationBlockTemplate">
+            <End Role="InformationBlock" EntitySet="ArtifactSet" />
+            <End Role="Template" EntitySet="ArtifactSet" />
+          </AssociationSet>
+          <EntitySet Name="DirectorySet" EntityType="DataModel.Directory" />
+          <AssociationSet Name="DirectoryDirectory" Association="DataModel.DirectoryDirectory">
+            <End Role="Directory" EntitySet="DirectorySet" />
+            <End Role="Directory1" EntitySet="DirectorySet" />
+          </AssociationSet>
+          <AssociationSet Name="ArtifactDirectory" Association="DataModel.ArtifactDirectory">
+            <End Role="Artifact" EntitySet="ArtifactSet" />
+            <End Role="Directory" EntitySet="DirectorySet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Artifact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" DefaultValue="1" />
+          <NavigationProperty Name="Tag" Relationship="DataModel.TagArtifact" FromRole="Artifact" ToRole="Tag" />
+          <Property Name="EditorRequired" Type="Boolean" Nullable="false" DefaultValue="false" />
+          <NavigationProperty Name="Directory" Relationship="DataModel.ArtifactDirectory" FromRole="Artifact" ToRole="Directory" />
+        </EntityType>
+        <EntityType Name="Atom" BaseType="DataModel.InformationBlock">
+          <Property Name="Text" Type="String" Nullable="false" DefaultValue="" />
+        </EntityType>
+        <EntityType Name="Template" BaseType="DataModel.InformationBlock">
+          <NavigationProperty Name="Document" Relationship="DataModel.TemplateDocument" FromRole="Template" ToRole="Document" />
+          <NavigationProperty Name="Blocks" Relationship="DataModel.InformationBlockTemplate" FromRole="Template" ToRole="InformationBlock" />
+        </EntityType>
+        <EntityType Name="Document" BaseType="DataModel.Artifact">
+          <NavigationProperty Name="Template" Relationship="DataModel.TemplateDocument" FromRole="Document" ToRole="Template" />
+        </EntityType>
+        <Association Name="TemplateDocument">
+          <End Type="DataModel.Template" Role="Template" Multiplicity="*" />
+          <End Type="DataModel.Document" Role="Document" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Artifact" Relationship="DataModel.TagArtifact" FromRole="Tag" ToRole="Artifact" />
+        </EntityType>
+        <Association Name="TagArtifact">
+          <End Type="DataModel.Tag" Role="Tag" Multiplicity="*" />
+          <End Type="DataModel.Artifact" Role="Artifact" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="TemplateStructure" />
+        <EntityType Name="InformationBlock" BaseType="DataModel.Artifact">
+          <NavigationProperty Name="LinkedTemplates" Relationship="DataModel.InformationBlockTemplate" FromRole="InformationBlock" ToRole="Template" />
+        </EntityType>
+        <Association Name="InformationBlockTemplate">
+          <End Type="DataModel.InformationBlock" Role="InformationBlock" Multiplicity="*" />
+          <End Type="DataModel.Template" Role="Template" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Directory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Parent" Relationship="DataModel.DirectoryDirectory" FromRole="Directory" ToRole="Directory1" />
+          <NavigationProperty Name="Children" Relationship="DataModel.DirectoryDirectory" FromRole="Directory1" ToRole="Directory" />
+          <NavigationProperty Name="Artifacts" Relationship="DataModel.ArtifactDirectory" FromRole="Directory" ToRole="Artifact" />
+        </EntityType>
+        <Association Name="DirectoryDirectory">
+          <End Type="DataModel.Directory" Role="Directory" Multiplicity="*" />
+          <End Type="DataModel.Directory" Role="Directory1" Multiplicity="0..1" />
+        </Association>
+        <Association Name="ArtifactDirectory">
+          <End Type="DataModel.Artifact" Role="Artifact" Multiplicity="*" />
+          <End Type="DataModel.Directory" Role="Directory" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="ArtifactSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Artifact)">
+        <MappingFragment StoreEntitySet="ArtifactSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="EditorRequired" ColumnName="EditorRequired" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.InformationBlock)">
+        <MappingFragment StoreEntitySet="ArtifactSet_InformationBlock">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Template)">
+        <MappingFragment StoreEntitySet="ArtifactSet_Template">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Document)">
+        <MappingFragment StoreEntitySet="ArtifactSet_Document">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Atom)">
+        <MappingFragment StoreEntitySet="ArtifactSet_Atom">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Tag)">
+        <MappingFragment StoreEntitySet="TagSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DirectorySet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Directory)">
+        <MappingFragment StoreEntitySet="DirectorySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="TemplateDocument" TypeName="DataModel.TemplateDocument" StoreEntitySet="ArtifactSet_Template">
+      <EndProperty Name="Document">
+        <ScalarProperty Name="Id" ColumnName="Document_Id" />
+      </EndProperty>
+      <EndProperty Name="Template">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Document_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TagArtifact" TypeName="DataModel.TagArtifact" StoreEntitySet="TagArtifact">
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="Id" ColumnName="Tag_Id" />
+      </EndProperty>
+      <EndProperty Name="Artifact">
+        <ScalarProperty Name="Id" ColumnName="Artifact_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InformationBlockTemplate" TypeName="DataModel.InformationBlockTemplate" StoreEntitySet="InformationBlockTemplate">
+      <EndProperty Name="InformationBlock">
+        <ScalarProperty Name="Id" ColumnName="Blocks_Id" />
+      </EndProperty>
+      <EndProperty Name="Template">
+        <ScalarProperty Name="Id" ColumnName="LinkedTemplates_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DirectoryDirectory" TypeName="DataModel.DirectoryDirectory" StoreEntitySet="DirectorySet">
+      <EndProperty Name="Directory1">
+        <ScalarProperty Name="Id" ColumnName="Parent_Id" />
+      </EndProperty>
+      <EndProperty Name="Directory">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Parent_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ArtifactDirectory" TypeName="DataModel.ArtifactDirectory" StoreEntitySet="ArtifactSet">
+      <EndProperty Name="Directory">
+        <ScalarProperty Name="Id" ColumnName="Directory_Id" />
+      </EndProperty>
+      <EndProperty Name="Artifact">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
